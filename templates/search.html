@@ -1,0 +1,40 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PDF Metadata Extractor</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <script src="{{url_for('static', filename='script.js')}}"></script>
+    </head>
+    <body style=" display: flex;"> 
+        
+        <div style="margin: 50px;">
+            <div class="mb-3">
+                    <form action="{{ url_for('search') }}" method="post">
+                        <input type="text" name="id" placeholder="Enter metadata id">
+                        <input type="submit" value="Search">
+                        </form>
+                            {% if result %}
+                            <h2>Result:</h2>
+                            <table class="table">
+                                {% for key, value in data_table.items() %}
+                                <tr>
+                                    <td style="color: whitesmoke; background-color: rgb(163, 126, 126);">{{ key }}</td>
+                                    <td style="color: whitesmoke;">{{ value }}</td>
+                                </tr>
+                                {% endfor %}
+                            </table>         
+                            {% elif message %}
+                        <p>{{ message }}</p>
+                    {% endif %}   
+            </div>
+        </div>    
+        <form action="/" method="get" enctype="multipart/form-data">
+            <input type="submit" value="Add new metadata">
+        </form>
+    </body>
+</html>
+
+<!-- metadata.html -->
